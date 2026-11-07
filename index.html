@@ -289,7 +289,7 @@
 
   const isAdmin = () => st.role === 'admin';
   function safeUrl(u) { try { const x = new URL(u); return (x.protocol === 'https:' || x.protocol === 'http:') ? x.href : null; } catch (e) { return null; } }
-  function host(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
+  function host_(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
 
   const dfmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const mfmt = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
@@ -403,7 +403,7 @@
   function newsRow(n, compact) {
     const url = safeUrl(n.url);
     const title = url ? h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: n.title || 'Untitled' }) : (n.title || 'Untitled');
-    const meta = [n.region === 'UK' ? 'UK' : 'World', n.source || (url ? host(url) : ''), fd(n.date)].filter(Boolean);
+    const meta = [n.region === 'UK' ? 'UK' : 'World', n.source || (url ? host_(url) : ''), fd(n.date)].filter(Boolean);
     return h('article', { class: 'item' },
       h('div', { class: 'meta' }, meta.map((m) => h('span', { text: m }))),
       h('h3', null, title),
@@ -464,29 +464,37 @@
     };
   }
 
+  /* The list shows one cover per issue (month, title, opening line). Clicking opens the issue. */
   function mountNewsletters(root) {
-    const months = h('nav', { class: 'tabs months', 'aria-label': 'Issues' });
-    const reader = h('article', { class: 'card reader' });
-    root.append(months, reader);
+    const host = h('div');
+    root.append(host);
     return function () {
+      host.replaceChildren();
+      if (!st.ready) { host.append(empty('Loading…')); return; }
       const items = data.newsletters.slice().sort(byMonth);
-      months.replaceChildren(); reader.replaceChildren();
-      months.hidden = items.length < 2;
-      if (!st.ready) { reader.append(empty('Loading…')); return; }
-      if (!items.length) { reader.append(empty('No newsletters yet.')); return; }
-      const sel = items.filter((n) => n.id === st.route.issue)[0] || items[0];
+      if (!items.length) { host.append(empty('No newsletters yet.')); return; }
+      const sel = st.route.issue && items.filter((n) => n.id === st.route.issue)[0];
+      if (sel) {
+        const url = safeUrl(sel.link);
+        host.append(
+          h('p', null, h('a', { href: '#newsletters', text: '← All newsletters' })),
+          h('article', { class: 'card reader' },
+            h('div', { class: 'meta' }, h('span', { text: fm(sel.month) })),
+            h('h2', { text: sel.title || fm(sel.month) }),
+            sel.intro && h('p', { class: 'lead', text: sel.intro }),
+            h('hr'),
+            renderRich(sel),
+            url && h('p', null, h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: 'Open the original (' + host_(url) + ')' })),
+            editLink('newsletters', sel)));
+        return;
+      }
       items.forEach((n) => {
-        months.append(h('a', { class: 'tab', href: '#issue-' + n.id, 'aria-current': String(n.id === sel.id), text: fm(n.month) }));
+        const line = n.intro || teaser(n);
+        host.append(h('article', { class: 'item' },
+          h('div', { class: 'meta' }, h('span', { text: fm(n.month) })),
+          h('h3', null, h('a', { href: '#issue-' + n.id, text: n.title || fm(n.month) })),
+          line && h('p', { class: 'sum', text: line })));
       });
-      const url = safeUrl(sel.link);
-      reader.append(
-        h('div', { class: 'meta' }, h('span', { text: fm(sel.month) })),
-        h('h2', { text: sel.title || fm(sel.month) }),
-        sel.intro && h('p', { class: 'lead', text: sel.intro }),
-        h('hr'),
-        renderRich(sel),
-        url && h('p', null, h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: 'Open the original (' + host(url) + ')' })),
-        editLink('newsletters', sel));
     };
   }
 
