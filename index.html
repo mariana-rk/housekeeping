@@ -99,6 +99,17 @@
   .item h3 a { color: var(--fg); text-decoration: none; }
   .item h3 a:hover { color: var(--link); }
   .item .sum { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+  /* Collapsible covers: title + one line, opens on click */
+  details.fold > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 0 16px; align-items: start; }
+  details.fold > summary::-webkit-details-marker { display: none; }
+  details.fold > summary .cv { min-width: 0; }
+  details.fold > summary .sum { margin: 6px 0 0; color: var(--muted); max-width: 62ch; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+  details.fold > summary::after { content: ""; width: 9px; height: 9px; margin-top: 14px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .15s; }
+  details.fold[open] > summary::after { transform: rotate(-135deg); margin-top: 18px; }
+  details.fold > summary:hover h3 { color: var(--link); }
+  details.fold > summary:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; border-radius: 6px; }
+  details.fold[open] > summary .sum { display: none; }
+  .fold-body { margin-top: 14px; }
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
   .flag { font-weight: 600; }
   .f-urgent { color: var(--urgent); }
@@ -366,26 +377,54 @@
     return h('button', { type: 'button', class: 'edit', text: 'Edit', onclick: () => openForm(kind, item) });
   }
 
+  const opened = new Set();
+  function snippet(item) {
+    let t = '';
+    if (item.summary) t = item.summary;
+    else if (item.html) { try { t = new DOMParser().parseFromString(String(item.html), 'text/html').body.textContent || ''; } catch (e) { t = ''; } }
+    else t = String(item.body || '').replace(/^##\s+.*$/gm, ' ').replace(/^[-•]\s+/gm, '');
+    t = t.replace(/\s+/g, ' ').trim();
+    const m = t.match(/^(.{20,160}?[.!?])(\s|$)/);
+    if (m) return m[1];
+    return t.length > 160 ? t.slice(0, 157).trim() + '…' : t;
+  }
+  function fold(key, metaEl, title, sumText, bodyEl) {
+    const d = h('details', { class: 'fold' },
+      h('summary', null, h('div', { class: 'cv' }, metaEl, h('h3', { text: title }), sumText && h('p', { class: 'sum', text: sumText }))),
+      h('div', { class: 'fold-body' }, bodyEl));
+    if (opened.has(key)) d.open = true;
+    d.addEventListener('toggle', () => { d.open ? opened.add(key) : opened.delete(key); });
+    return d;
+  }
+
   function updateRow(u, full) {
     const p = u.priority;
+    const meta = h('div', { class: 'meta' },
+      (p === 'urgent' || p === 'important') && h('span', { class: 'flag f-' + p, text: PRIO[p] }),
+      h('span', { text: fd(u.date) }));
+    if (!full) {
+      return h('article', { class: 'item' }, meta,
+        h('h3', null, h('a', { href: '#updates', text: u.title || 'Untitled' })));
+    }
     return h('article', { class: 'item' },
-      h('div', { class: 'meta' },
-        (p === 'urgent' || p === 'important') && h('span', { class: 'flag f-' + p, text: PRIO[p] }),
-        h('span', { text: fd(u.date) })),
-      h('h3', null, full ? (u.title || 'Untitled') : h('a', { href: '#updates', text: u.title || 'Untitled' })),
-      full && h('div', { class: 'body' }, renderRich(u)),
-      full && editLink('updates', u));
+      fold('u' + u.id, meta, u.title || 'Untitled', snippet(u), h('div', null, renderRich(u), editLink('updates', u))));
   }
 
   function newsRow(n, compact) {
     const url = safeUrl(n.url);
-    const title = url ? h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: n.title || 'Untitled' }) : (n.title || 'Untitled');
     const meta = [n.region === 'UK' ? 'UK' : 'World', n.source || (url ? host(url) : ''), fd(n.date)].filter(Boolean);
+    const metaEl = h('div', { class: 'meta' }, meta.map((m) => h('span', { text: m })));
+    if (compact) {
+      const title = url ? h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: n.title || 'Untitled' }) : (n.title || 'Untitled');
+      return h('article', { class: 'item' }, metaEl, h('h3', null, title));
+    }
+    const sum = n.summary ? snippet({ summary: n.summary }) : '';
     return h('article', { class: 'item' },
-      h('div', { class: 'meta' }, meta.map((m) => h('span', { text: m }))),
-      h('h3', null, title),
-      !compact && n.summary && h('p', { class: 'sum', text: n.summary }),
-      !compact && editLink('news', n));
+      fold('n' + n.id, metaEl, n.title || 'Untitled', sum,
+        h('div', null,
+          n.summary && h('p', { class: 'txt', text: n.summary }),
+          url && h('p', null, h('a', { href: url, target: '_blank', rel: 'noopener noreferrer', text: 'Read the full article' + (host(url) ? ' (' + host(url) + ')' : '') })),
+          editLink('news', n))));
   }
 
   /* ---------- Views ---------- */
