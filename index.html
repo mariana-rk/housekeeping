@@ -226,6 +226,124 @@
   .avatar { background: var(--olive); color: #fff; }
   :root[data-theme="dark"] .avatar { color: #10190f; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .avatar { color: #10190f; } }
+
+  /* Type scale, refined: smaller and lighter (base 14px; 26 / 24 / 20 / 15.5 / 14 / 13 / 12 / 11) */
+  body { font-size: 14px; line-height: 1.6; }
+  .brand b { font-size: 20px; }
+  .brand span { font-size: 10.5px; letter-spacing: .16em; }
+  .nav a, .nav button { font-size: 11.5px; letter-spacing: .07em; }
+  .nav { gap: 0 20px; }
+  .dot { min-width: 16px; height: 16px; font-size: 10px; line-height: 16px; padding: 0 4px; }
+  .band { padding-block: 22px; }
+  .band h1 { font-size: 24px; letter-spacing: .05em; }
+  .band p { font-size: 13.5px; margin-top: 4px; }
+  .add { font-size: 12.5px; padding: 8px 14px; }
+  .note { font-size: 13px; }
+  main { padding-block: 28px 12px; }
+  .sec { margin-bottom: 32px; }
+  .sec-h h2 { font-size: 10.5px; letter-spacing: .12em; }
+  .sec-h a { font-size: 12px; }
+  .item { padding: 14px 18px; }
+  .item h3 { font-size: 15.5px; font-weight: 600; }
+  .item .sum { font-size: 13px; }
+  .meta { font-size: 11.5px; }
+  .flag { font-size: 10px; letter-spacing: .06em; }
+  .txt { font-size: 13px; }
+  .prose h3 { font-size: 15.5px; }
+  .rich h1, .rich h2 { font-size: 18px; }
+  .tab { font-size: 12.5px; }
+  .card .kick { font-size: 10.5px; letter-spacing: .12em; }
+  .card h3 { font-size: 19px; }
+  .card .sum { font-size: 13.5px; }
+  .go { font-size: 12.5px; padding: 8px 14px; }
+  .reader h2 { font-size: 24px; line-height: 1.25; }
+  .reader .lead { font-size: 14.5px; }
+  .empty { font-size: 13px; }
+  .gf h2 { font-size: 18px; }
+  .gf p { font-size: 13px; }
+  .gf label { font-size: 12px; }
+  .sg label { font-size: 15px; }
+  .sg-msg { font-size: 12.5px; }
+  .sg .hint, .field .hint { font-size: 11.5px; }
+  .btn { font-size: 12.5px; padding: 8px 16px; }
+  .btn.small { font-size: 12px; padding: 5px 11px; }
+  .link, .link-danger, .edit { font-size: 12px; }
+  .form h2 { font-size: 18px; }
+  .field label { font-size: 12px; }
+  .field textarea.code { font-size: 12px; }
+  .ferr { font-size: 12.5px; }
+  .chk { font-size: 13px; }
+  .person .who { font-size: 13.5px; }
+  .person .who small { font-size: 11.5px; }
+  .pname { font-size: 14px; }
+  .ptitle { font-size: 12px; }
+  .avatar { width: 40px; height: 40px; font-size: 13px; }
+  .gate-brand b { font-size: 22px; }
+  .gate-brand span { font-size: 10.5px; }
+  .gate-foot, footer { font-size: 11px; }
+  /* Phones zoom into inputs smaller than 16px, so keep fields at 16px there. */
+  @media (max-width: 640px) { input, select, textarea { font-size: 16px; } .band h1 { font-size: 22px; } .reader h2 { font-size: 22px; } }
+
+  /* Refined, smaller type scale: 14 body / 15 list titles / 19-24 headings / 11-12 labels */
+  body { font-size: 14px; line-height: 1.6; }
+  .bar { min-height: 52px; }
+  .brand b { font-size: 20px; letter-spacing: .12em; }
+  .brand span { font-size: 10.5px; letter-spacing: .16em; }
+  .nav { gap: 0 20px; }
+  .nav a, .nav button { font-size: 11.5px; letter-spacing: .07em; padding: 17px 0 15px; }
+  .dot { min-width: 16px; height: 16px; font-size: 10px; line-height: 16px; padding: 0 4px; }
+  .band { padding-block: 24px; }
+  .band h1 { font-size: 25px; letter-spacing: .06em; }
+  .band p { font-size: 13.5px; margin-top: 4px; }
+  .add { font-size: 12.5px; padding: 8px 14px; letter-spacing: .02em; }
+  .note { font-size: 13px; }
+  main { padding-block: 28px 12px; }
+  .sec { margin-bottom: 32px; }
+  .sec-h h2 { font-size: 11px; letter-spacing: .12em; }
+  .sec-h a { font-size: 12px; }
+  .item { padding: 14px 18px; }
+  .item h3 { font-size: 15px; font-weight: 500; line-height: 1.4; }
+  .item .sum { font-size: 13px; margin-top: 3px; }
+  .meta { font-size: 11.5px; }
+  .flag { font-size: 10.5px; letter-spacing: .06em; }
+  .txt { font-size: 13.5px; }
+  .prose { font-size: 14px; }
+  .prose h3 { font-size: 15.5px; font-weight: 500; }
+  .rich h1, .rich h2 { font-size: 18px; font-weight: 500; }
+  .tab { font-size: 13px; }
+  .card { padding: clamp(18px, 3vw, 26px); }
+  .card .kick { font-size: 11px; letter-spacing: .12em; }
+  .card h3 { font-size: 19px; margin: 6px 0 6px; }
+  .card .sum { font-size: 13.5px; margin-bottom: 16px; }
+  .go, .btn { font-size: 12.5px; letter-spacing: .02em; }
+  .go { padding: 8px 15px; }
+  .btn { padding: 8px 16px; }
+  .btn.small { font-size: 12px; padding: 5px 11px; }
+  .reader h2 { font-size: 24px; line-height: 1.25; margin: 6px 0 8px; }
+  .reader .lead { font-size: 14.5px; margin-bottom: 16px; }
+  .empty { font-size: 13px; padding: 18px; }
+  .edit, .link, .link-danger { font-size: 12px; }
+  .gf h2 { font-size: 18px; font-weight: 500; }
+  .gf p { font-size: 13px; }
+  .gf label, .field label { font-size: 12.5px; }
+  .gf input, .field input, .field select, .field textarea, .sg textarea, .sg input, .addrow input { font-size: 13.5px; padding: 9px 12px; }
+  .field .hint, .sg .hint { font-size: 11.5px; }
+  .sg label { font-size: 15px; font-weight: 500; }
+  .sg-msg { font-size: 12.5px; }
+  .form h2 { font-size: 18px; font-weight: 500; }
+  .chk { font-size: 13px; }
+  .ferr { font-size: 12.5px; }
+  .gate-brand b { font-size: 22px; }
+  .gate-brand span { font-size: 10.5px; }
+  .gate-foot, footer { font-size: 11px; }
+  .person { padding: 11px 18px; }
+  .person .who { font-size: 13.5px; }
+  .person .who small { font-size: 11.5px; }
+  .people { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+  .pcard { padding: 12px 14px; gap: 12px; }
+  .avatar { width: 40px; height: 40px; font-size: 13px; }
+  .pname { font-size: 14px; font-weight: 500; }
+  .ptitle { font-size: 12px; }
 </style>
 </head>
 <body>
