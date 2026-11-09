@@ -401,7 +401,7 @@
     people: ['People', 'Who can open the hub.']
   };
   const ADD = { updates: 'Add update', newsletters: 'Add newsletter', news: 'Add news', team: 'Add person' };
-  const TEAMS = ['Office team', 'Senior Housekeepers', 'Housekeepers', 'Maintenance technicians'];
+  const TEAMS = ['Founder', 'Operations & Strategy Team', 'Sales and Customer Success Team', 'Onboarding & Account Manager Team', 'Onboarding Team', 'Account Manager Team', 'Guest Experience Team', 'Finance Team', 'Housekeeping Team', 'Senior Housekeepers', 'Housekeepers', 'Maintenance Team'];
 
   const data = { updates: [], newsletters: [], news: [], team: [], suggestions: [], allowed: [], requests: [] };
   const st = { route: getRoute(), email: null, role: null, ready: false, region: 'all', editing: null };
@@ -663,7 +663,7 @@
 
   /* Meet the team: people grouped by team, each with initials, name and job title. */
   function initials(n) {
-    const p = String(n || '').trim().split(/\s+/).filter(Boolean);
+    const p = String(n || '').replace(/\(.*?\)/g, ' ').trim().split(/\s+/).filter(Boolean);
     return ((p[0] || '')[0] || '').toUpperCase() + ((p.length > 1 ? p[p.length - 1][0] : '') || '').toUpperCase();
   }
   function mountTeam(root) {
