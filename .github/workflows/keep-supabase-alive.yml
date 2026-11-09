@@ -15,12 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Query the database through the API
+      - name: Call the keep_alive function through the API
         run: |
           code=$(curl --silent --show-error --retry 3 --retry-delay 10 \
-            --output /dev/null --write-out '%{http_code}' \
+            --request POST --output /dev/null --write-out '%{http_code}' \
             --header "apikey: sb_publishable_5hsUuLfz5xtPfiq9n7h_cg__rbUPt7F" \
-            "https://jxgsoniwxldyxpcyjhfs.supabase.co/rest/v1/news?select=id&limit=1")
+            --header "Content-Type: application/json" --data '{}' \
+            "https://jxgsoniwxldyxpcyjhfs.supabase.co/rest/v1/rpc/keep_alive")
           echo "Supabase answered HTTP $code"
           # Any 2xx means the database was reached. Anything else fails the run,
           # and GitHub then emails the repository owner.
