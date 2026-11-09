@@ -7,32 +7,35 @@
 <title>Red Kite Housekeeping</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Marcellus&display=swap">
 <style>
-  /* Corporate variant: same structure and behaviour, restrained palette, compact proportional type scale
+  /* Red Kite variant: palette sampled from the Red Kite website (forest green #243e30, olive #7b794e, sand #c7c5b2, cream #e6dcca), compact proportional type scale
      (15px base; 28 / 20 / 17 / 15 / 13 / 12), small radii, hairline borders, solid navy header band. */
   :root {
-    --bg: #f3f5f8; --bar: #ffffff; --surface: #ffffff; --fg: #1a2433; --muted: #5a6677; --line: #dde2ea;
-    --link: #1f4e9c; --green: #14263d; --green-2: #14263d; --glow: transparent;
-    --on-green: #ffffff; --on-green-muted: rgba(255,255,255,.74);
-    --urgent: #b42318; --important: #b54708; --ok: #067647;
-    --btn-bg: #14263d; --btn-fg: #ffffff;
+    --bg: #f4f0e6; --bar: #c7c5b2; --surface: #fffdf8; --fg: #11221c; --muted: #5b655f; --line: #ddd5c3;
+    --link: #5b5a33; --green: #243e30; --green-2: #243e30; --glow: transparent;
+    --on-green: #f4efe3; --on-green-muted: rgba(244,239,227,.78);
+    --urgent: #a8321f; --important: #8a5a0a; --ok: #2f6b3f;
+    --olive: #6c6a42; --cream: #e6dcca;
+    --btn-bg: #6c6a42; --btn-fg: #ffffff;
+    --brand: #243e30; --nav: #243e30;
     --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-brand: "Marcellus", "Trajan Pro", "Times New Roman", serif;
     --r: 8px; --r-sm: 6px;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0f151e; --bar: #131b27; --surface: #161f2c; --fg: #e6ebf2; --muted: #9aa6b6; --line: #263244;
-      --link: #8db4f0; --green: #0b121b; --green-2: #0b121b; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
-      --btn-bg: #e6ebf2; --btn-fg: #0f151e; color-scheme: dark;
+      --bg: #101a15; --bar: #1a2a21; --surface: #16231c; --fg: #ece8dc; --muted: #a2aba5; --line: #2a3a31;
+      --link: #cfcb8f; --green: #0c1510; --green-2: #0c1510; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
+      --btn-bg: #cfcb8f; --btn-fg: #10190f; --brand: #e6dcca; --nav: #d9d6c4; --olive: #cfcb8f; color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0f151e; --bar: #131b27; --surface: #161f2c; --fg: #e6ebf2; --muted: #9aa6b6; --line: #263244;
-    --link: #8db4f0; --green: #0b121b; --green-2: #0b121b; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
-    --btn-bg: #e6ebf2; --btn-fg: #0f151e; color-scheme: dark;
+    --bg: #101a15; --bar: #1a2a21; --surface: #16231c; --fg: #ece8dc; --muted: #a2aba5; --line: #2a3a31;
+    --link: #cfcb8f; --green: #0c1510; --green-2: #0c1510; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
+    --btn-bg: #cfcb8f; --btn-fg: #10190f; --brand: #e6dcca; --nav: #d9d6c4; --olive: #cfcb8f; color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -154,7 +157,7 @@
   .link { background: none; border: 0; padding: 0; color: var(--link); cursor: pointer; text-decoration: underline; font-size: 13px; }
 
   #formHost[hidden] { display: none; }
-  .overlay { position: fixed; inset: 0; z-index: 50; overflow-y: auto; background: rgba(10,18,30,.55);
+  .overlay { position: fixed; inset: 0; z-index: 50; overflow-y: auto; background: rgba(12,21,16,.55);
     padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
   .form { width: min(640px, 100%); margin: 24px auto; padding: clamp(20px, 3.5vw, 28px); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
   .form h2 { margin: 0 0 16px; font: 600 20px/1.3 var(--font-display); }
@@ -192,6 +195,37 @@
   .addrow input { flex: 1 1 220px; min-width: 0; padding: 9px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); }
 
   footer { padding-block: 8px 32px; color: var(--muted); font-size: 12px; }
+
+  /* Meet the team */
+  .people { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+  .pcard { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); min-width: 0; }
+  .avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: var(--on-green); font: 600 15px/1 var(--font-body); letter-spacing: .04em; }
+  .pinfo { min-width: 0; }
+  .pname { font-weight: 600; font-size: 15px; line-height: 1.3; overflow-wrap: anywhere; }
+  .ptitle { font-size: 13px; color: var(--muted); line-height: 1.4; overflow-wrap: anywhere; }
+  .pcard .edit { margin-top: 4px; }
+
+  /* Red Kite site look: sand bar, forest-green band, flared capitals for brand and page titles */
+  .bar-bg { border-bottom: 0; }
+  .brand b { font: 400 24px/1 var(--font-brand); letter-spacing: .1em; color: var(--brand); }
+  .brand span { border-left-color: color-mix(in srgb, var(--brand) 35%, transparent); color: var(--brand); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+  .nav a, .nav button { color: var(--nav); text-transform: uppercase; letter-spacing: .05em; font-size: 12.5px; font-weight: 500; }
+  .nav a:hover, .nav button:hover { color: var(--brand); }
+  .nav a[aria-current="page"] { color: var(--brand); font-weight: 600; border-bottom-color: var(--brand); }
+  .dot { background: var(--brand); color: var(--bar); }
+  .band h1 { font: 400 32px/1.15 var(--font-brand); letter-spacing: .04em; text-transform: uppercase; }
+  .reader h2, .card h3 { font-family: var(--font-brand); font-weight: 400; letter-spacing: .01em; }
+  .reader h2 { font-size: 30px; }
+  .card h3 { font-size: 23px; }
+  .gate-brand b { font: 400 26px/1 var(--font-brand); letter-spacing: .12em; color: var(--brand); }
+  .gate-brand span { text-transform: uppercase; letter-spacing: .16em; font-size: 12px; }
+  .btn:hover, .go:hover { opacity: 1; filter: brightness(.94); }
+  .btn.quiet { color: var(--fg); background: var(--cream); border-color: var(--cream); }
+  :root[data-theme="dark"] .btn.quiet { background: transparent; border-color: var(--line); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.quiet { background: transparent; border-color: var(--line); } }
+  .avatar { background: var(--olive); color: #fff; }
+  :root[data-theme="dark"] .avatar { color: #10190f; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .avatar { color: #10190f; } }
 </style>
 </head>
 <body>
@@ -244,12 +278,14 @@
     updates: ['Updates', 'Notices for the whole team.'],
     newsletters: ['Newsletters', 'One issue each month.'],
     news: ['News', 'Housekeeping news from the UK and around the world.'],
-    suggestions: ['Suggestions', 'Tell us what you would like to read about.'],
+    team: ['Meet the team', 'The people behind Red Kite housekeeping.'],
+    suggestions: ['Suggestions', 'Tell us what to write about and what we can do better.'],
     people: ['People', 'Who can open the hub.']
   };
-  const ADD = { updates: 'Add update', newsletters: 'Add newsletter', news: 'Add news' };
+  const ADD = { updates: 'Add update', newsletters: 'Add newsletter', news: 'Add news', team: 'Add person' };
+  const TEAMS = ['Office team', 'Senior Housekeepers', 'Housekeepers', 'Maintenance technicians'];
 
-  const data = { updates: [], newsletters: [], news: [], suggestions: [], allowed: [], requests: [] };
+  const data = { updates: [], newsletters: [], news: [], team: [], suggestions: [], allowed: [], requests: [] };
   const st = { route: getRoute(), email: null, role: null, ready: false, region: 'all', editing: null };
   let current = { update: function () {} };
   let noteTimer = null;
@@ -299,7 +335,7 @@
     const s = (location.hash || '').slice(1);
     if (s.indexOf('issue-') === 0) return { view: 'newsletters', issue: s.slice(6) };
     if (s.indexOf('update-') === 0) return { view: 'updates', update: s.slice(7) };
-    if (['updates', 'newsletters', 'news', 'suggestions', 'people'].indexOf(s) > -1) return { view: s };
+    if (['updates', 'newsletters', 'news', 'team', 'suggestions', 'people'].indexOf(s) > -1) return { view: s };
     return { view: 'home' };
   }
 
@@ -507,26 +543,55 @@
     };
   }
 
+  /* Meet the team: people grouped by team, each with initials, name and job title. */
+  function initials(n) {
+    const p = String(n || '').trim().split(/\s+/).filter(Boolean);
+    return ((p[0] || '')[0] || '').toUpperCase() + ((p.length > 1 ? p[p.length - 1][0] : '') || '').toUpperCase();
+  }
+  function mountTeam(root) {
+    const list = h('div');
+    root.append(list);
+    return function () {
+      list.replaceChildren();
+      if (!st.ready) { list.append(empty('Loading…')); return; }
+      if (!data.team.length) { list.append(empty(isAdmin() ? 'Nobody here yet. Use “Add person” to start.' : 'The team will appear here soon.')); return; }
+      TEAMS.forEach((g) => {
+        const people = data.team.filter((p) => p.team === g).sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        if (!people.length) return;
+        list.append(section(g, h('div', { class: 'people' }, people.map((p) =>
+          h('div', { class: 'pcard' },
+            h('div', { class: 'avatar', 'aria-hidden': 'true', text: initials(p.name) }),
+            h('div', { class: 'pinfo' }, h('div', { class: 'pname', text: p.name }), h('div', { class: 'ptitle', text: p.title }), editLink('team_members', p)))))));
+      });
+    };
+  }
+
   function mountSuggestions(root) {
-    const ta = h('textarea', { id: 'sg-text', rows: 5, placeholder: 'For example: a refresher on deep-clean checklists, or tips for busy turnaround days' });
+    const ta = h('textarea', { id: 'sg-text', rows: 4, placeholder: 'For example: a refresher on deep-clean checklists, or tips for busy turnaround days' });
+    const tb = h('textarea', { id: 'sg-better', rows: 4, placeholder: 'For example: the way we hand over keys, supplies, scheduling, communication' });
     const nm = h('input', { id: 'sg-name', type: 'text', placeholder: 'Your name (optional)', 'aria-label': 'Your name (optional)', autocomplete: 'off' });
     const msg = h('p', { class: 'sg-msg', role: 'status', hidden: true });
-    const send = h('button', { type: 'submit', class: 'btn', text: 'Send suggestion' });
+    const send = h('button', { type: 'submit', class: 'btn', text: 'Send' });
     const form = h('form', { class: 'card sg' },
-      h('label', { for: 'sg-text', text: 'What would you like to see in the next newsletter?' }), ta, nm,
-      h('p', { class: 'hint', text: 'Only the hub manager sees suggestions, together with your email address.' }), msg, send);
+      h('label', { for: 'sg-text', text: 'What would you like to see in the next newsletter?' }), ta,
+      h('label', { for: 'sg-better', text: 'What can we do better?' }), tb,
+      nm,
+      h('p', { class: 'hint', text: 'Answer one or both. Only the hub manager sees what you send, together with your email address.' }), msg, send);
     const inbox = h('div');
     const say = (text, cls) => { msg.textContent = text; msg.className = 'sg-msg ' + (cls || ''); msg.hidden = false; };
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const text = ta.value.trim();
-      if (!text) { say('Write your suggestion first.', 'bad'); return; }
+      const name = nm.value.trim() || null;
+      const rows = [];
+      if (ta.value.trim()) rows.push({ author_email: st.email, name, text: ta.value.trim(), category: 'newsletter' });
+      if (tb.value.trim()) rows.push({ author_email: st.email, name, text: tb.value.trim(), category: 'improvement' });
+      if (!rows.length) { say('Write at least one answer first.', 'bad'); return; }
       send.disabled = true; msg.hidden = true;
-      const { error } = await sb.from('suggestions').insert({ author_email: st.email, name: nm.value.trim() || null, text });
+      const { error } = await sb.from('suggestions').insert(rows);
       send.disabled = false;
       if (error) { say('Could not send. Check your connection and try again.', 'bad'); return; }
-      ta.value = '';
-      say('Thank you. Your suggestion has been sent.', 'ok');
+      ta.value = ''; tb.value = '';
+      say('Thank you. Your answer has been sent.', 'ok');
       if (isAdmin()) loadAll();
     });
     root.append(form, inbox);
@@ -536,7 +601,7 @@
       const all = data.suggestions.slice().sort((a, b) => ((b.created_at || '') < (a.created_at || '') ? -1 : 1));
       const list = h('div');
       if (!st.ready) list.append(empty('Loading…'));
-      else if (!all.length) list.append(empty('No suggestions yet.'));
+      else if (!all.length) list.append(empty('Nothing received yet.'));
       else all.forEach((x) => {
         let armed = false;
         const del = h('button', { type: 'button', class: 'edit', text: 'Remove' });
@@ -548,7 +613,9 @@
           loadAll();
         });
         list.append(h('article', { class: 'item' },
-          h('div', { class: 'meta' }, h('span', { text: x.name ? x.name + ' (' + x.author_email + ')' : x.author_email }), h('span', { text: fd(x.created_at) })),
+          h('div', { class: 'meta' },
+            h('span', { class: 'flag', text: x.category === 'improvement' ? 'What can we do better' : 'Newsletter topic' }),
+            h('span', { text: x.name ? x.name + ' (' + x.author_email + ')' : x.author_email }), h('span', { text: fd(x.created_at) })),
           h('p', { class: 'txt', text: x.text }), del));
       });
       inbox.append(h('div', { class: 'gap-top' }, section('Received', list)));
@@ -632,6 +699,14 @@
         { k: 'region', l: 'Region', t: 'select', o: [['UK', 'UK'], ['World', 'World']] }
       ]
     },
+    team_members: {
+      label: 'person',
+      fields: [
+        { k: 'name', l: 'Name', t: 'text', req: 1 },
+        { k: 'title', l: 'Job title', t: 'text', req: 1 },
+        { k: 'team', l: 'Group', t: 'select', o: TEAMS.map((x) => [x, x]) }
+      ]
+    },
     newsletters: {
       label: 'newsletter',
       fields: [
@@ -647,6 +722,7 @@
   const DEFAULTS = {
     updates: () => ({ priority: 'info' }),
     news: () => ({ region: 'UK' }),
+    team_members: () => ({ team: 'Housekeepers' }),
     newsletters: () => ({ month: new Date().toISOString().slice(0, 7) })
   };
 
@@ -727,13 +803,13 @@
   /* ---------- Data ---------- */
 
   async function loadAll() {
-    const jobs = [sb.from('updates').select('*'), sb.from('newsletters').select('*'), sb.from('news').select('*')];
+    const jobs = [sb.from('updates').select('*'), sb.from('newsletters').select('*'), sb.from('news').select('*'), sb.from('team_members').select('*')];
     if (isAdmin()) jobs.push(sb.from('suggestions').select('*'), sb.from('allowed_emails').select('*'), sb.from('access_requests').select('*'));
     let res;
     try { res = await Promise.all(jobs); } catch (e) { note('Could not load the hub. Check your connection and reload.', 'bad'); st.ready = true; refresh(); return; }
     if (res.some((r) => r.error)) note('Could not load everything. Reload the page or check your connection.', 'bad');
-    data.updates = res[0].data || []; data.newsletters = res[1].data || []; data.news = res[2].data || [];
-    if (isAdmin()) { data.suggestions = res[3].data || []; data.allowed = res[4].data || []; data.requests = res[5].data || []; }
+    data.updates = res[0].data || []; data.newsletters = res[1].data || []; data.news = res[2].data || []; data.team = res[3].data || [];
+    if (isAdmin()) { data.suggestions = res[4].data || []; data.allowed = res[5].data || []; data.requests = res[6].data || []; }
     st.ready = true;
     refresh();
   }
@@ -742,7 +818,7 @@
 
   function renderChrome() {
     const v = st.route.view;
-    const items = [['home', 'Home'], ['updates', 'Updates'], ['newsletters', 'Newsletters'], ['news', 'News'], ['suggestions', 'Suggestions']];
+    const items = [['home', 'Home'], ['updates', 'Updates'], ['newsletters', 'Newsletters'], ['news', 'News'], ['team', 'Team'], ['suggestions', 'Suggestions']];
     if (isAdmin()) items.push(['people', 'People']);
     const nav = $('#nav');
     nav.replaceChildren(...items.map((n) => {
@@ -753,7 +829,7 @@
     $('#bandSub').textContent = BAND[v][1];
     const add = $('#addBtn');
     add.hidden = !(ADD[v] && isAdmin());
-    if (ADD[v]) { add.textContent = ADD[v]; add.onclick = () => openForm(v, null); }
+    if (ADD[v]) { add.textContent = ADD[v]; add.onclick = () => openForm(v === 'team' ? 'team_members' : v, null); }
   }
 
   function refresh() { if (!st.role) return; renderChrome(); current.update(); }
@@ -766,7 +842,7 @@
     const same = lastView === st.route.view;
     if (same && (st.route.view === 'newsletters' || st.route.view === 'updates')) { current.update(); window.scrollTo(0, 0); return; }
     root.replaceChildren();
-    const mount = { home: mountHome, updates: mountUpdates, newsletters: mountNewsletters, news: mountNews, suggestions: mountSuggestions, people: mountPeople }[st.route.view];
+    const mount = { home: mountHome, updates: mountUpdates, newsletters: mountNewsletters, news: mountNews, team: mountTeam, suggestions: mountSuggestions, people: mountPeople }[st.route.view];
     current.update = mount(root);
     lastView = st.route.view;
     current.update();
@@ -865,7 +941,7 @@
   async function signOut() {
     await sb.auth.signOut();
     st.role = null; st.email = null; st.ready = false;
-    data.updates = []; data.newsletters = []; data.news = []; data.suggestions = []; data.allowed = []; data.requests = [];
+    data.updates = []; data.newsletters = []; data.news = []; data.team = []; data.suggestions = []; data.allowed = []; data.requests = [];
     gate('email');
   }
 
