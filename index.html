@@ -7,35 +7,39 @@
 <title>Red Kite Housekeeping</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Marcellus&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Marcellus&display=swap">
 <style>
   /* Red Kite variant: palette sampled from the Red Kite website (forest green #243e30, olive #7b794e, sand #c7c5b2, cream #e6dcca), compact proportional type scale
      (15px base; 28 / 20 / 17 / 15 / 13 / 12), small radii, hairline borders, solid navy header band. */
+  /* Red Kite brand: Dark Green #11231C, Green #1E3D2F, Cream #C7C5B1, Olive #7A794B,
+     Warm Sand #D5B793, Red Rust #883817, Lighter Red Rust #A04D2A. Fonts: Grenda (headers), Hanken Grotesk (body). */
+  @font-face { font-family: "Grenda"; src: url("fonts/Grenda.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
   :root {
-    --bg: #f4f0e6; --bar: #c7c5b2; --surface: #fffdf8; --fg: #11221c; --muted: #5b655f; --line: #ddd5c3;
-    --link: #5b5a33; --green: #243e30; --green-2: #243e30; --glow: transparent;
-    --on-green: #f4efe3; --on-green-muted: rgba(244,239,227,.78);
-    --urgent: #a8321f; --important: #8a5a0a; --ok: #2f6b3f;
-    --olive: #6c6a42; --cream: #e6dcca;
-    --btn-bg: #6c6a42; --btn-fg: #ffffff;
-    --brand: #243e30; --nav: #243e30;
-    --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --font-brand: "Marcellus", "Trajan Pro", "Times New Roman", serif;
+    --dark-green: #11231C; --green: #1E3D2F; --cream: #C7C5B1; --olive: #7A794B;
+    --sand: #D5B793; --rust: #883817; --rust-2: #A04D2A;
+    --bg: #F2F0E7; --bar: #11231C; --surface: #FBFAF6; --fg: #11231C; --muted: #566159; --line: #DAD6C4;
+    --link: #883817; --green-2: #1E3D2F; --glow: transparent;
+    --on-green: #F2F0E7; --on-green-muted: rgba(242,240,231,.78);
+    --urgent: #883817; --important: #6B6A3F; --ok: #1E3D2F;
+    --btn-bg: #883817; --btn-fg: #ffffff; --btn-hover: #A04D2A;
+    --nav: #C7C5B1; --nav-on: #F2F0E7;
+    --font-display: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-brand: "Grenda", "Marcellus", "Trajan Pro", "Times New Roman", serif;
     --r: 8px; --r-sm: 6px;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #101a15; --bar: #1a2a21; --surface: #16231c; --fg: #ece8dc; --muted: #a2aba5; --line: #2a3a31;
-      --link: #cfcb8f; --green: #0c1510; --green-2: #0c1510; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
-      --btn-bg: #cfcb8f; --btn-fg: #10190f; --brand: #e6dcca; --nav: #d9d6c4; --olive: #cfcb8f; color-scheme: dark;
+      --bg: #0B1611; --surface: #12241C; --fg: #ECE8DC; --muted: #A2ABA4; --line: #243830;
+      --link: #D5B793; --green: #1E3D2F; --green-2: #1E3D2F; --urgent: #E59A7C; --important: #D5B793; --ok: #9BD0AE;
+      --btn-bg: #A04D2A; --btn-fg: #ffffff; --btn-hover: #883817; color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #101a15; --bar: #1a2a21; --surface: #16231c; --fg: #ece8dc; --muted: #a2aba5; --line: #2a3a31;
-    --link: #cfcb8f; --green: #0c1510; --green-2: #0c1510; --urgent: #f19a8f; --important: #f0b56c; --ok: #7fd1a3;
-    --btn-bg: #cfcb8f; --btn-fg: #10190f; --brand: #e6dcca; --nav: #d9d6c4; --olive: #cfcb8f; color-scheme: dark;
+    --bg: #0B1611; --surface: #12241C; --fg: #ECE8DC; --muted: #A2ABA4; --line: #243830;
+    --link: #D5B793; --green: #1E3D2F; --green-2: #1E3D2F; --urgent: #E59A7C; --important: #D5B793; --ok: #9BD0AE;
+    --btn-bg: #A04D2A; --btn-fg: #ffffff; --btn-hover: #883817; color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -205,85 +209,6 @@
   .ptitle { font-size: 13px; color: var(--muted); line-height: 1.4; overflow-wrap: anywhere; }
   .pcard .edit { margin-top: 4px; }
 
-  /* Red Kite site look: sand bar, forest-green band, flared capitals for brand and page titles */
-  .bar-bg { border-bottom: 0; }
-  .brand b { font: 400 24px/1 var(--font-brand); letter-spacing: .1em; color: var(--brand); }
-  .brand span { border-left-color: color-mix(in srgb, var(--brand) 35%, transparent); color: var(--brand); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
-  .nav a, .nav button { color: var(--nav); text-transform: uppercase; letter-spacing: .05em; font-size: 12.5px; font-weight: 500; }
-  .nav a:hover, .nav button:hover { color: var(--brand); }
-  .nav a[aria-current="page"] { color: var(--brand); font-weight: 600; border-bottom-color: var(--brand); }
-  .dot { background: var(--brand); color: var(--bar); }
-  .band h1 { font: 400 32px/1.15 var(--font-brand); letter-spacing: .04em; text-transform: uppercase; }
-  .reader h2, .card h3 { font-family: var(--font-brand); font-weight: 400; letter-spacing: .01em; }
-  .reader h2 { font-size: 30px; }
-  .card h3 { font-size: 23px; }
-  .gate-brand b { font: 400 26px/1 var(--font-brand); letter-spacing: .12em; color: var(--brand); }
-  .gate-brand span { text-transform: uppercase; letter-spacing: .16em; font-size: 12px; }
-  .btn:hover, .go:hover { opacity: 1; filter: brightness(.94); }
-  .btn.quiet { color: var(--fg); background: var(--cream); border-color: var(--cream); }
-  :root[data-theme="dark"] .btn.quiet { background: transparent; border-color: var(--line); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.quiet { background: transparent; border-color: var(--line); } }
-  .avatar { background: var(--olive); color: #fff; }
-  :root[data-theme="dark"] .avatar { color: #10190f; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .avatar { color: #10190f; } }
-
-  /* Type scale, refined: smaller and lighter (base 14px; 26 / 24 / 20 / 15.5 / 14 / 13 / 12 / 11) */
-  body { font-size: 14px; line-height: 1.6; }
-  .brand b { font-size: 20px; }
-  .brand span { font-size: 10.5px; letter-spacing: .16em; }
-  .nav a, .nav button { font-size: 11.5px; letter-spacing: .07em; }
-  .nav { gap: 0 20px; }
-  .dot { min-width: 16px; height: 16px; font-size: 10px; line-height: 16px; padding: 0 4px; }
-  .band { padding-block: 22px; }
-  .band h1 { font-size: 24px; letter-spacing: .05em; }
-  .band p { font-size: 13.5px; margin-top: 4px; }
-  .add { font-size: 12.5px; padding: 8px 14px; }
-  .note { font-size: 13px; }
-  main { padding-block: 28px 12px; }
-  .sec { margin-bottom: 32px; }
-  .sec-h h2 { font-size: 10.5px; letter-spacing: .12em; }
-  .sec-h a { font-size: 12px; }
-  .item { padding: 14px 18px; }
-  .item h3 { font-size: 15.5px; font-weight: 600; }
-  .item .sum { font-size: 13px; }
-  .meta { font-size: 11.5px; }
-  .flag { font-size: 10px; letter-spacing: .06em; }
-  .txt { font-size: 13px; }
-  .prose h3 { font-size: 15.5px; }
-  .rich h1, .rich h2 { font-size: 18px; }
-  .tab { font-size: 12.5px; }
-  .card .kick { font-size: 10.5px; letter-spacing: .12em; }
-  .card h3 { font-size: 19px; }
-  .card .sum { font-size: 13.5px; }
-  .go { font-size: 12.5px; padding: 8px 14px; }
-  .reader h2 { font-size: 24px; line-height: 1.25; }
-  .reader .lead { font-size: 14.5px; }
-  .empty { font-size: 13px; }
-  .gf h2 { font-size: 18px; }
-  .gf p { font-size: 13px; }
-  .gf label { font-size: 12px; }
-  .sg label { font-size: 15px; }
-  .sg-msg { font-size: 12.5px; }
-  .sg .hint, .field .hint { font-size: 11.5px; }
-  .btn { font-size: 12.5px; padding: 8px 16px; }
-  .btn.small { font-size: 12px; padding: 5px 11px; }
-  .link, .link-danger, .edit { font-size: 12px; }
-  .form h2 { font-size: 18px; }
-  .field label { font-size: 12px; }
-  .field textarea.code { font-size: 12px; }
-  .ferr { font-size: 12.5px; }
-  .chk { font-size: 13px; }
-  .person .who { font-size: 13.5px; }
-  .person .who small { font-size: 11.5px; }
-  .pname { font-size: 14px; }
-  .ptitle { font-size: 12px; }
-  .avatar { width: 40px; height: 40px; font-size: 13px; }
-  .gate-brand b { font-size: 22px; }
-  .gate-brand span { font-size: 10.5px; }
-  .gate-foot, footer { font-size: 11px; }
-  /* Phones zoom into inputs smaller than 16px, so keep fields at 16px there. */
-  @media (max-width: 640px) { input, select, textarea { font-size: 16px; } .band h1 { font-size: 22px; } .reader h2 { font-size: 22px; } }
-
   /* Refined, smaller type scale: 14 body / 15 list titles / 19-24 headings / 11-12 labels */
   body { font-size: 14px; line-height: 1.6; }
   .bar { min-height: 52px; }
@@ -344,13 +269,48 @@
   .avatar { width: 40px; height: 40px; font-size: 13px; }
   .pname { font-size: 14px; font-weight: 500; }
   .ptitle { font-size: 12px; }
+
+  /* Brand application */
+  body { font-family: var(--font-body); }
+  .bar-bg { background: var(--dark-green); border-bottom: 0; }
+  .bar { min-height: 60px; }
+  .brand { gap: 14px; padding-block: 10px; }
+  .brand .logo { display: block; height: 26px; width: auto; }
+  .brand span { padding-left: 14px; border-left: 1px solid rgba(199,197,177,.35); color: var(--cream); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; }
+  .nav a, .nav button { color: var(--nav); text-transform: uppercase; letter-spacing: .08em; font-size: 11.5px; font-weight: 500; }
+  .nav a:hover, .nav button:hover { color: var(--nav-on); }
+  .nav a[aria-current="page"] { color: var(--nav-on); font-weight: 600; border-bottom-color: var(--sand); }
+  .dot { background: var(--sand); color: var(--dark-green); }
+  .band-bg { background: var(--green); border-bottom: 0; }
+  .band h1 { font: 400 28px/1.15 var(--font-brand); letter-spacing: .05em; text-transform: uppercase; }
+  .reader h2, .card h3, .gf h2 { font-family: var(--font-brand); font-weight: 400; letter-spacing: .01em; }
+  .reader h2 { font-size: 28px; }
+  .card h3 { font-size: 21px; }
+  .gf h2, .form h2 { font-family: var(--font-brand); font-weight: 400; font-size: 20px; }
+  .btn, .go { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
+  .btn:hover, .go:hover { background: var(--btn-hover); border-color: var(--btn-hover); filter: none; opacity: 1; }
+  .btn.quiet { background: transparent; color: var(--fg); border-color: var(--line); }
+  .btn.quiet:hover { background: var(--cream); border-color: var(--cream); color: var(--dark-green); }
+  .add { border-color: rgba(199,197,177,.55); color: var(--cream); }
+  .add:hover { background: rgba(199,197,177,.14); }
+  .tab[aria-current="true"], .tab[aria-pressed="true"] { border-bottom-color: var(--rust); }
+  .avatar { background: var(--sand); color: var(--dark-green); }
+  .flag.f-urgent { color: var(--urgent); }
+  .card .kick, .sec-h h2 { color: var(--olive); }
+  :root[data-theme="dark"] .card .kick, :root[data-theme="dark"] .sec-h h2 { color: var(--sand); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .card .kick, :root:not([data-theme="light"]) .sec-h h2 { color: var(--sand); } }
+  body:has(#gate:not([hidden])) { background: var(--dark-green); }
+  .gate-brand .logo { display: block; margin: 0 auto; height: 38px; width: auto; max-width: 100%; }
+  .gate-brand span { margin-top: 14px; color: var(--cream); font-size: 10.5px; letter-spacing: .22em; text-transform: uppercase; }
+  .gate-foot { color: rgba(199,197,177,.8); }
+  @media (max-width: 560px) { .brand .logo { height: 22px; } .brand span { display: none; } .band h1 { font-size: 24px; } }
 </style>
 </head>
 <body>
 
 <div id="gate">
   <div class="gate-in">
-    <div class="gate-brand"><b>Redkite</b><span>Housekeeping</span></div>
+    <div class="gate-brand"><img class="logo" src="logo.png" alt="Redkite"><span>Housekeeping</span></div>
     <div class="card" id="gateBody"><p class="sum" style="margin:0">Loading…</p></div>
     <p class="gate-foot">Internal use only. Red Kite Hosts housekeeping team.</p>
   </div>
@@ -359,7 +319,7 @@
 <div id="app" hidden>
   <div class="bar-bg full-bleed">
     <div class="wide bar">
-      <a class="brand" href="#home" aria-label="Red Kite Housekeeping, home"><b>Redkite</b><span>Housekeeping</span></a>
+      <a class="brand" href="#home" aria-label="Red Kite Housekeeping, home"><img class="logo" src="logo.png" alt="Redkite"><span>Housekeeping</span></a>
       <nav class="nav" id="nav" aria-label="Sections"></nav>
     </div>
   </div>
@@ -673,7 +633,7 @@
       list.replaceChildren();
       if (!st.ready) { list.append(empty('Loading…')); return; }
       if (!data.team.length) { list.append(empty(isAdmin() ? 'Nobody here yet. Use “Add person” to start.' : 'The team will appear here soon.')); return; }
-      TEAMS.forEach((g) => {
+      TEAMS.concat(data.team.map((p) => p.team).filter((g, i, arr) => TEAMS.indexOf(g) < 0 && arr.indexOf(g) === i)).forEach((g) => {
         const rank = (t) => /founder|head|lead|manager/i.test(t) ? 0 : /senior/i.test(t) ? 1 : /executive|assistant/i.test(t) ? 2 : 3;
         const people = data.team.filter((p) => p.team === g).sort((a, b) => (rank(a.title) - rank(b.title)) || (a.name || '').localeCompare(b.name || ''));
         if (!people.length) return;
